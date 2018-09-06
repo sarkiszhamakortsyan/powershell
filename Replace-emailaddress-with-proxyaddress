@@ -1,0 +1,6 @@
+Import-Module ActiveDirectory
+
+Get-ADUser -Filter * -Properties proxyaddresses |
+ForEach-Object {
+    $_ | Set-ADUser -Replace @{'mail'="$($_.proxyaddresses.Trim("SMTP:"))"}
+}
